@@ -21,6 +21,21 @@ def reset():
     global elevator
     return elevator.reset(request.args.get("cause"))
 
+@app.route("/userHasEntered")
+def user_has_entered():
+    global elevator
+    return elevator.user_has_entered()
+
+@app.route("/go")
+def go():
+    global elevator
+    return elevator.go(request.args.get("floorToGo"))
+    
+@app.route("/userHasExited")
+def user_has_exited():
+    global elevator
+    return elevator.user_has_exited()
+
 if __name__ == "__main__":
     app.run(debug=True)
 

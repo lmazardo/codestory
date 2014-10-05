@@ -1,0 +1,2 @@
+source $(which virtualenvwrapper.sh )
+workon codestory_with_flask
