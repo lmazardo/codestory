@@ -1,2 +1,13 @@
+Installing a virtualenv with flask
+----------------------------------
+source $(which virtualenvwrapper.sh )
+mkvirtualenv codestory_with_flask
+pip install Flask
+
+Using the elevator
+------------------
 source $(which virtualenvwrapper.sh )
 workon codestory_with_flask
+git clone git@github.com:lmazardo/codestory.git
+cd codestory
+python flaskElevator.py
