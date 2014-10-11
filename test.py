@@ -34,35 +34,32 @@ class Test(unittest.TestCase):
         next_command = elevator.next_command()
         self.assertNotEquals(next_command, "DOWN")
 
-    def test_next_command_is_up_when_call_at_3(self):
+    def test_next_command_is_up_when_calling_at_3(self):
         elevator = SimpleElevator.SimpleElevator()
         elevator.call("3", "UP")
         next_command = elevator.next_command()
         self.assertEquals(next_command, "UP")
 
-    def test(self):
+    def test_user_can_entered_when_calling_at_3(self):
         elevator = SimpleElevator.SimpleElevator()
         elevator.call("3", "UP")
-        next_command = elevator.next_command()
-        self.assertEquals(next_command, "UP")
+        self.assertNextCommand(elevator, "UP")
         self.assertEquals(1, elevator.current_floor)
 
-        next_command = elevator.next_command()
-        self.assertEquals(next_command, "UP")
+        self.assertNextCommand(elevator, "UP")
         self.assertEquals(2, elevator.current_floor)
 
-        next_command = elevator.next_command()
-        self.assertEquals(next_command, "UP")
+        self.assertNextCommand(elevator, "UP")
         self.assertEquals(3, elevator.current_floor)
 
-        next_command = elevator.next_command()
-        self.assertEquals(next_command, "OPEN")
+        self.assertNextCommand(elevator,"OPEN")
 
         elevator.user_has_entered()
-        next_command = elevator.next_command()
-        self.assertEquals(next_command, "CLOSE")
+        self.assertNextCommand(elevator, "CLOSE")
         
         elevator.go(0)
-        next_command = elevator.next_command()
-        self.assertEquals(next_command, "DOWN")
+        self.assertNextCommand(elevator, "DOWN")
+        
+    def assertNextCommand(self, elevator, expected):
+        self.assertEquals(elevator.next_command(), expected)
         

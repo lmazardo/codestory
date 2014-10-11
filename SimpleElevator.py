@@ -3,7 +3,6 @@ class SimpleElevator():
         self.current_floor = current
         self.has_to_close = False
         self.direction = "^"
-        self.gos = []
         self.calls = []
 
     def reset(self, cause):
@@ -15,7 +14,7 @@ class SimpleElevator():
             self.has_to_close = False
             return "CLOSE"
 
-        if self.current_floor in self.calls or self.current_floor in self.gos:
+        if self.current_floor in self.calls: 
             return "OPEN"
 
         if is_highest_floor(self.current_floor):
@@ -42,24 +41,21 @@ class SimpleElevator():
             self.direction = "v"
     
     def go(self, floor_to_go):
-        self.gos.append(int(floor_to_go))
+        self.calls.append(int(floor_to_go))
         self.compute_direction(floor_to_go)    
         return ""
 
-    def user_has_entered(self):
+    def _on_user(self):
         self.has_to_close = True
         if self.current_floor in self.calls:
             self.calls.remove(self.current_floor)
-        if self.current_floor in self.gos:
-            self.gos.remove(self.current_floor)
+
+    def user_has_entered(self):
+        self._on_user()
         return ""
 
     def user_has_exited(self):
-        self.has_to_close = True
-        if self.current_floor in self.calls:
-            self.calls.remove(self.current_floor)
-        if self.current_floor in self.gos:
-            self.gos.remove(self.current_floor)
+        self._on_user()
         return ""
 
     def call(self, at_floor, floor_to_go):
